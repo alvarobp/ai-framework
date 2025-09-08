@@ -1,9 +1,11 @@
-Retrieve my unread newsletters from the `Tech Subscriptions` gmail label between August 1st 2025 and August 15th 2025. 
+# Generate Tech Newsletters Digest
+
+Retrieve my unread newsletters from the `Tech Subscriptions` gmail label. 
 
 Requirements:
 - Get ALL unread entries in the specified timeframe by paginating through results until complete
 - Read full content for each email thread to capture complete information
-- Generate a well-organized web page using the template below (enclosed in //TEMPLATE lines) that presents:
+- Generate a well-organized web page that presents:
 
 STRUCTURE:
 1. Stats bar showing one row with stats, including total unread count at the top
@@ -30,4 +32,8 @@ FORMATTING:
 - Include hover effects and proper typography
 - Mobile-friendly layout
 
+Use tech-newsletters.html as template for the web page code.
+
 Generate a comprehensive digest that serves as both a reference document and learning roadmap for the valuable insights from this period's newsletter reading.
+
+
