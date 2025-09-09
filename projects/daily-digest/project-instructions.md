@@ -43,6 +43,7 @@ Use the template structure and styling from `daily-digest-template.html`:
 6. Use consistent emoji themes and professional language
 7. Highlight key figures, company names, and amounts
 8. Keep descriptions concise but informative
+9. Include a relevance explanation for each item explaining why it was selected and why it's relevant for the user's interests and career goals
 
 Generate the complete HTML page using this exact template structure and styling.
 
@@ -60,8 +61,10 @@ Generate the complete HTML page using this exact template structure and styling.
 
 3. **Apply consistent styling** using the company and amount span classes (include spaces around span tags as grammatically appropriate for natural text flow)
 
-4. **Write a meaningful summary** for the key takeaway section
+4. **Add relevance explanations** for each highlight item explaining why it was selected and its relevance to career progression and interests
 
-5. **Create an Appendix section** with all articles grouped by source and date (format: "[SOURCE_NAME] - [DATE]") ordered by date newest first
+5. **Write a meaningful summary** for the key takeaway section
+
+6. **Create an Appendix section** with all articles grouped by source and date (format: "[SOURCE_NAME] - [DATE]") ordered by date newest first
 
 This template ensures you'll get the same professional and well-organized layout every time you generate a daily digest highlights page. Each news item title will be a clickable link to its original source.
