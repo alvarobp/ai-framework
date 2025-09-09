@@ -39,7 +39,7 @@ Use the template structure and styling from `daily-digest-template.html`:
 2. Organize content into logical categories based on the content available
 3. Include all relevant highlight items - do not limit based on quantity, focus on relevance and importance
 4. End with summary card containing key takeaway
-5. Include an Appendix section at the very end with all articles grouped by source and date (newest first)
+5. Include an Appendix section at the very end with ALL non-sponsored articles from all sources grouped by source and date (newest first) - not just the ones selected for highlights
 6. Use consistent emoji themes and professional language
 7. Highlight key figures, company names, and amounts
 8. Keep descriptions concise but informative
@@ -65,6 +65,6 @@ Generate the complete HTML page using this exact template structure and styling.
 
 5. **Write a meaningful summary** for the key takeaway section
 
-6. **Create an Appendix section** with all articles grouped by source and date (format: "[SOURCE_NAME] - [DATE]") ordered by date newest first
+6. **Create an Appendix section** with ALL non-sponsored articles from all digest sources grouped by source and date (format: "[SOURCE_NAME] - [DATE]") ordered by date newest first - include every article, not just those selected for highlights
 
 This template ensures you'll get the same professional and well-organized layout every time you generate a daily digest highlights page. Each news item title will be a clickable link to its original source.
