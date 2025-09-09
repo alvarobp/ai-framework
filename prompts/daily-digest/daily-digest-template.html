@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Digest Highlights - [DATE]</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .date {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .category {
+            margin-bottom: 50px;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #e74c3c;
+        }
+
+        .category-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .category h2 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        .highlight-item {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #3498db;
+        }
+
+        .highlight-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .highlight-title a {
+            color: #2c3e50;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .highlight-title a:hover {
+            color: #3498db;
+            text-decoration: underline;
+        }
+
+        .highlight-title .emoji {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .highlight-description {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .amount {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .company {
+            color: #8e44ad;
+            font-weight: bold;
+        }
+
+        /* Category color schemes */
+        .financial { border-left-color: #e74c3c; }
+        .ai { border-left-color: #9b59b6; }
+        .business { border-left-color: #f39c12; }
+        .tech { border-left-color: #3498db; }
+        .medical { border-left-color: #27ae60; }
+        .entertainment { border-left-color: #e67e22; }
+        .security { border-left-color: #e74c3c; }
+        .research { border-left-color: #2980b9; }
+        .startup { border-left-color: #f39c12; }
+        .social { border-left-color: #e67e22; }
+
+        .financial .category-icon { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .ai .category-icon { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .business .category-icon { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .tech .category-icon { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .medical .category-icon { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+        .entertainment .category-icon { background: linear-gradient(135deg, #e67e22, #d35400); }
+        .security .category-icon { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .research .category-icon { background: linear-gradient(135deg, #2980b9, #3498db); }
+        .startup .category-icon { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .social .category-icon { background: linear-gradient(135deg, #e67e22, #d35400); }
+
+        .summary-card {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .summary-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .summary-card p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .appendix {
+            margin-top: 50px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .appendix h2 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        .appendix h2 .emoji {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .source-group {
+            margin-bottom: 30px;
+        }
+
+        .source-group h3 {
+            color: #34495e;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .article-list {
+            list-style: none;
+            margin-left: 20px;
+        }
+
+        .article-list li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+
+        .article-list a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .article-list a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .category-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .category-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .article-list li {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Daily Digest Highlights</h1>
+            <div class="date">[DATE]</div>
+        </div>
+
+        <div class="content">
+            <!-- CATEGORY TEMPLATE -->
+            <div class="category [CATEGORY_CLASS]">
+                <div class="category-header">
+                    <div class="category-icon">[EMOJI]</div>
+                    <h2>[CATEGORY_NAME]</h2>
+                </div>
+
+                <!-- HIGHLIGHT ITEM TEMPLATE -->
+                <div class="highlight-item [CATEGORY_CLASS]">
+                    <div class="highlight-title">
+                        <a href="[ITEM_URL]" target="_blank">
+                            <span class="emoji">[ITEM_EMOJI]</span>
+                            [ITEM_TITLE]
+                        </a>
+                    </div>
+                    <div class="highlight-description">
+                        [DESCRIPTION_WITH_STYLED_ELEMENTS]
+                    </div>
+                </div>
+                <!-- Repeat highlight-item for each item in category -->
+            </div>
+            <!-- Repeat category div for each category -->
+
+            <!-- SUMMARY CARD -->
+            <div class="summary-card">
+                <h3>🎯 Key Takeaway</h3>
+                <p>[SUMMARY_OF_MAIN_TRENDS_AND_INSIGHTS]</p>
+            </div>
+
+            <!-- APPENDIX SECTION -->
+            <div class="appendix">
+                <h2><span class="emoji">📚</span> Appendix: All Articles</h2>
+                <div class="appendix-sources">
+                    <!-- Group articles by source and date, ordered by date (newest first) -->
+                    <div class="source-group">
+                        <h3>[SOURCE_NAME] - [DATE]</h3>
+                        <ul class="article-list">
+                            <li>
+                                <a href="[ARTICLE_URL]" target="_blank">[ARTICLE_TITLE]</a>
+                            </li>
+                            <!-- Repeat for each article from this source and date -->
+                        </ul>
+                    </div>
+                    <!-- Repeat source-group for each source/date combination -->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

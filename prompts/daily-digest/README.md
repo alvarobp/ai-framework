@@ -1,11 +1,11 @@
-# Tech Newsletters Digest
+# Daily Digest
 
-Used in a Claude Project to generate a web page artifact.
+Used in a Claude Project to generate a web page artifact showing highlights based on my interests and objectives from daily digests I'm subscribed to.
 
 ## Project setup
 
 Set Project Instructions to [project-instructions.md](./project-instructions.md)
-Upload [tech-newsletters-template.html](./tech-newsletters-template.html) to the project files.
+Upload [daily-digest-template.html](./daily-digest-template.html) to the project files.
 
 ## Usage
 
