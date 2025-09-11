@@ -9,11 +9,24 @@ fi
 
 # Show welcome banner using gum
 gum style \
-    --foreground 212 \
-    --border-foreground 212 \
     --border double \
+    --border-foreground 208 \
     --align center \
-    --width 50 \
+    --width 40 \
     --margin "1 2" \
-    --padding "2 4" \
-    "Welcome to abpAI"
+    --padding "1 2" \
+    "$(gum join "$(gum style --foreground 255 "Welcome to ")" "$(gum style --foreground 208 "abp")" "$(gum style --foreground 208 "AI")")"
+
+# Present options
+choice=$(gum choose --cursor.foreground 208 --header.foreground 255 --item.foreground 250 --header "What are you up to?" "Generate Daily Digest" "Exit")
+
+case $choice in
+    "Generate Daily Digest")
+        echo "Running daily digest generation..."
+        cd projects/daily-digest; ./generate.sh
+        ;;
+    "Exit")
+        echo "Goodbye!"
+        exit 0
+        ;;
+esac
