@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Check if gum is installed and available
+if ! command -v gum &> /dev/null; then
+    echo -e "\033[31mError: gum is not installed or not available in PATH\033[0m"
+    echo "Please install gum from: https://github.com/charmbracelet/gum"
+    exit 1
+fi
+
+# Show welcome banner using gum
+gum style \
+    --foreground 212 \
+    --border-foreground 212 \
+    --border double \
+    --align center \
+    --width 50 \
+    --margin "1 2" \
+    --padding "2 4" \
+    "Welcome to abpAI"
