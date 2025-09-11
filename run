@@ -1,36 +1,70 @@
 #!/bin/bash
 
-# Check if gum is installed and available
-if ! command -v gum &> /dev/null; then
-    echo -e "\033[31mError: gum is not installed or not available in PATH\033[0m"
-    echo "Please install gum from: https://github.com/charmbracelet/gum"
-    exit 1
-fi
+# Function to run daily digest
+run_daily() {
+    echo "Running daily digest generation..."
+    cd projects/daily-digest; ./generate.sh
+}
 
-# Show welcome banner using gum
-gum style \
-    --border double \
-    --border-foreground 208 \
-    --align center \
-    --width 40 \
-    --margin "1 2" \
-    --padding "1 2" \
-    "$(gum join "$(gum style --foreground 255 "Welcome to ")" "$(gum style --foreground 208 "abp")" "$(gum style --foreground 208 "AI")")"
+# Function to run newsletters digest
+run_newsletters() {
+    echo "Running newsletters digest generation..."
+    cd projects/newsletters-digest; ./generate.sh
+}
 
-# Present options
-choice=$(gum choose --cursor.foreground 208 --header.foreground 255 --item.foreground 250 --header "What are you up to?" "Generate Daily Digest" "Generate Newsletters Digest" "Exit")
+# Function to show interactive menu
+show_menu() {
+    # Check if gum is installed and available
+    if ! command -v gum &> /dev/null; then
+        echo -e "\033[31mError: gum is not installed or not available in PATH\033[0m"
+        echo "Please install gum from: https://github.com/charmbracelet/gum"
+        exit 1
+    fi
 
-case $choice in
-    "Generate Daily Digest")
-        echo "Running daily digest generation..."
-        cd projects/daily-digest; ./generate.sh
+    # Show welcome banner using gum
+    welcome_text=$(gum join "$(gum style --foreground 255 "Welcome to ")" "$(gum style --foreground 208 "abp")" "$(gum style --foreground 208 "AI")")
+    gum style \
+        --border double \
+        --border-foreground 208 \
+        --align center \
+        --width 40 \
+        --margin "1 2" \
+        --padding "1 2" \
+        "$welcome_text"
+
+    # Present options
+    choice=$(gum choose --cursor.foreground 208 --header.foreground 255 --item.foreground 250 --header "What are you up to?" "Generate Daily Digest" "Generate Newsletters Digest" "Exit")
+
+    case $choice in
+        "Generate Daily Digest")
+            run_daily
+            ;;
+        "Generate Newsletters Digest")
+            run_newsletters
+            ;;
+        "Exit")
+            echo "Goodbye!"
+            exit 0
+            ;;
+    esac
+}
+
+# Handle command line arguments
+case $1 in
+    "daily")
+        run_daily
         ;;
-    "Generate Newsletters Digest")
-        echo "Running newsletters digest generation..."
-        cd projects/newsletters-digest; ./generate.sh
+    "newsletters")
+        run_newsletters
         ;;
-    "Exit")
-        echo "Goodbye!"
-        exit 0
+    "")
+        show_menu
+        ;;
+    *)
+        echo "Usage: $0 [daily|newsletters]"
+        echo "  daily       - Generate daily digest"
+        echo "  newsletters - Generate newsletters digest"
+        echo "  (no args)   - Show interactive menu"
+        exit 1
         ;;
 esac
