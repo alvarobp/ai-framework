@@ -6,7 +6,7 @@ Generates a web page artifact showing highlights based on my interests and objec
 
 ### Project setup
 
-Set Project Instructions to [project-instructions.md](./project-instructions.md)
+Set Project Instructions to [instructions.md](./instructions.md)
 Upload [daily-digest-template.html](./daily-digest-template.html) to the project files.
 
 ### Usage
@@ -16,7 +16,7 @@ You can generate a new digest as easily as asking "Generate digest" in a new con
 ## Run unattended from a shell
 
 Requirements:
-  - AWS CLI (authenticated with access to s3://alvarobp-content)
+  - AWS CLI (authenticated with access to s3://alvarobp-digests)
   - Set access key environment variables in `.env` by copying `.env.sample`
 
 ```shell

@@ -1,15 +1,25 @@
-# Tech Newsletters Digest
+# Newsletters Digest
 
 Used in a Claude Project to generate a web page artifact.
 
 ## Project setup
 
-Set Project Instructions to [project-instructions.md](./project-instructions.md)
-Upload [tech-newsletters-template.html](./tech-newsletters-template.html) to the project files.
+Set Project Instructions to [instructions.md](./instructions.md)
+Upload [newsletters-digest-template.html](./newsletters-digest-template.html) to the project files.
 
 ## Usage
 
 You can generate a new digest as easily as asking "Generate digest" in a new conversation.
+
+## Run unattended from a shell
+
+Requirements:
+  - AWS CLI (authenticated with access to s3://alvarobp-digests)
+  - Set access key environment variables in `.env` by copying `.env.sample`
+
+```shell
+bash generate.sh
+```
 
 ## HTML Template
 

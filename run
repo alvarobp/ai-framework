@@ -18,12 +18,16 @@ gum style \
     "$(gum join "$(gum style --foreground 255 "Welcome to ")" "$(gum style --foreground 208 "abp")" "$(gum style --foreground 208 "AI")")"
 
 # Present options
-choice=$(gum choose --cursor.foreground 208 --header.foreground 255 --item.foreground 250 --header "What are you up to?" "Generate Daily Digest" "Exit")
+choice=$(gum choose --cursor.foreground 208 --header.foreground 255 --item.foreground 250 --header "What are you up to?" "Generate Daily Digest" "Generate Newsletters Digest" "Exit")
 
 case $choice in
     "Generate Daily Digest")
         echo "Running daily digest generation..."
         cd projects/daily-digest; ./generate.sh
+        ;;
+    "Generate Newsletters Digest")
+        echo "Running newsletters digest generation..."
+        cd projects/newsletters-digest; ./generate.sh
         ;;
     "Exit")
         echo "Goodbye!"

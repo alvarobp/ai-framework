@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(/digests/**)",
+      "mcp__gmail__search_emails",
+      "mcp__gmail__read_email",
+      "mcp__gmail__send_email"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "gmail"
+  ]
+}

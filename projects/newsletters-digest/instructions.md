@@ -1,4 +1,4 @@
-# Generate Tech Newsletters Digest
+# Generate Newsletters Digest
 
 Retrieve my unread newsletters from the `Tech Subscriptions` gmail label. 
 
@@ -32,7 +32,7 @@ FORMATTING:
 - Include hover effects and proper typography
 - Mobile-friendly layout
 
-Use tech-newsletters.html as template for the web page code.
+Use newsletters-digest-template.html as template for the web page code.
 
 Generate a comprehensive digest that serves as both a reference document and learning roadmap for the valuable insights from this period's newsletter reading.
 
