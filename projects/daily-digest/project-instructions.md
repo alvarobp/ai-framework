@@ -28,11 +28,11 @@ Use the template structure and styling from `daily-digest-template.html`:
 - Categories and highlights: [DESCRIBE YOUR CONTENT]
 
 **STYLING ELEMENTS:**
-- Wrap company names: `<span class="company">CompanyName</span>` (include spaces around span tags as needed for natural text flow)
-- Wrap monetary amounts: `<span class="amount">$1.5B</span>` (include spaces around span tags as needed for natural text flow)
+- Wrap company names: `<span class="company">CompanyName</span>` (ALWAYS include spaces around span tags as needed for natural text flow)
+- Wrap monetary amounts: `<span class="amount">$1.5B</span>` (ALWAYS include spaces around span tags as needed for natural text flow)  
 - Use emojis in titles: `<span class="emoji">⚖️</span>`
 - Each highlight item should have the category class applied
-- Do not wrap any names or amounts in titles
+- IMPORTANT: When wrapping company names or amounts in titles, ensure proper spacing. For example: "Microsoft Partners with Anthropic" should become " <span class="company">Microsoft</span> Partners with <span class="company">Anthropic</span>" with spaces before and after each span tag to ensure readability
 
 **STRUCTURE REQUIREMENTS:**
 1. Always include header with title and date
@@ -59,7 +59,7 @@ Generate the complete HTML page using this exact template structure and styling.
 
 2. **Choose appropriate categories** from the predefined list based on your content
 
-3. **Apply consistent styling** using the company and amount span classes (include spaces around span tags as grammatically appropriate for natural text flow)
+3. **Apply consistent styling** using the company and amount span classes (ALWAYS include spaces around span tags as grammatically appropriate for natural text flow - this is critical for readability)
 
 4. **Add relevance explanations** for each highlight item explaining why it was selected and its relevance to career progression and interests
 
