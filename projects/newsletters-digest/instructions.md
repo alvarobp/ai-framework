@@ -9,7 +9,7 @@ Requirements:
 
 STRUCTURE:
 1. Stats bar showing one row with stats, including total unread count at the top
-2. Newsletter summaries in chronological order (oldest first) with:
+2. Newsletter summaries in strict chronological order by date (oldest first) - MUST be properly sorted by email date with:
    - Title, author, date, and permalink to original post
    - 2-3 sentence summary of main content
    - Key insights section with 3-4 bullet points of actionable takeaways
@@ -25,6 +25,7 @@ VERIFICATION:
 - Confirm all unread articles from the timeframe are included as data sources
 - Ensure no newsletters are missed due to pagination limits
 - Cross-reference that every Knowledge Pill links back to its source articles
+- CRITICAL: Verify that all newsletter summaries are properly sorted by date in chronological order (oldest first) - check that earlier dates (e.g., Sept 9) appear before later dates (e.g., Sept 11)
 
 FORMATTING:
 - Create as responsive HTML with modern styling
