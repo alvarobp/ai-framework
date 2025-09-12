@@ -18,6 +18,12 @@ read_newsletters() {
     cd projects/newsletters-digest; ./read.sh
 }
 
+# Function to read daily digest
+read_daily() {
+    echo "Opening daily digest..."
+    cd projects/daily-digest; ./read.sh
+}
+
 # Function to show interactive menu
 show_menu() {
     local header_text="${1:-What are you up to?}"
@@ -43,7 +49,7 @@ show_menu() {
     fi
 
     # Present options
-    choice=$(gum choose --cursor.foreground 208 --header.foreground 255 --item.foreground 250 --header "$header_text" "Generate Daily Digest" "Generate Newsletters Digest" "Read Newsletters Digest" "Exit")
+    choice=$(gum choose --cursor.foreground 208 --header.foreground 255 --item.foreground 250 --header "$header_text" "Generate Daily Digest" "Generate Newsletters Digest" "Read Daily Digest" "Read Newsletters Digest" "Exit")
 
     case $choice in
         "Generate Daily Digest")
@@ -51,6 +57,11 @@ show_menu() {
             ;;
         "Generate Newsletters Digest")
             run_newsletters
+            ;;
+        "Read Daily Digest")
+            read_daily
+            echo
+            show_menu "What's next?"
             ;;
         "Read Newsletters Digest")
             read_newsletters
@@ -69,6 +80,9 @@ case "$1 $2" in
     "daily digest")
         run_daily
         ;;
+    "daily read")
+        read_daily
+        ;;
     "newsletters digest")
         run_newsletters
         ;;
@@ -76,8 +90,9 @@ case "$1 $2" in
         read_newsletters
         ;;
     "daily ")
-        echo "Usage: ai daily digest"
-        echo "  Generates a daily digest of activities"
+        echo "Usage: ai daily [digest|read]"
+        echo "  digest - Generates a daily digest of activities"
+        echo "  read   - Opens a daily digest from S3"
         exit 1
         ;;
     "newsletters ")
@@ -90,8 +105,9 @@ case "$1 $2" in
         show_menu
         ;;
     *)
-        echo "Usage: ai [daily digest|newsletters digest|newsletters read]"
+        echo "Usage: ai [daily digest|daily read|newsletters digest|newsletters read]"
         echo "  daily digest       - Generate daily digest"
+        echo "  daily read         - Read existing daily digest"
         echo "  newsletters digest - Generate newsletters digest"
         echo "  newsletters read   - Read existing newsletters digest"
         echo "  (no args)          - Show interactive menu"
