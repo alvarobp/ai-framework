@@ -1,5 +1,7 @@
 # Generate Newsletters Digest
 
+IMPORTANT: First check if there are any unread emails in the "Tech Subscriptions" label. If there are no unread emails, do not generate any digest and exit with a message saying "No unread emails found in Tech Subscriptions label."
+
 Retrieve my unread newsletters from the `Tech Subscriptions` gmail label. 
 
 Requirements:

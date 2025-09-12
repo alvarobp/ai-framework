@@ -18,6 +18,8 @@ My goal is to stay current and make sure I progress in my career. I also want fo
 
 Create an HTML web page showing highlights from daily digest emails organized by category. 
 
+IMPORTANT: First check if there are any unread emails in the "Daily Digests" label. If there are no unread emails, do not generate any digest and exit with a message saying "No unread emails found in Daily Digests label."
+
 Read all unread emails in Gmail under label `Daily Digests`.
 
 Use the template structure and styling from `daily-digest-template.html`:
