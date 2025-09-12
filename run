@@ -50,21 +50,31 @@ show_menu() {
 }
 
 # Handle command line arguments
-case $1 in
-    "daily")
+case "$1 $2" in
+    "daily digest")
         run_daily
         ;;
-    "newsletters")
+    "newsletters digest")
         run_newsletters
         ;;
-    "")
+    "daily ")
+        echo "Usage: ai daily digest"
+        echo "  Generates a daily digest of activities"
+        exit 1
+        ;;
+    "newsletters ")
+        echo "Usage: ai newsletters digest"
+        echo "  Generates a digest of newsletter content"
+        exit 1
+        ;;
+    " ")
         show_menu
         ;;
     *)
-        echo "Usage: $0 [daily|newsletters]"
-        echo "  daily       - Generate daily digest"
-        echo "  newsletters - Generate newsletters digest"
-        echo "  (no args)   - Show interactive menu"
+        echo "Usage: ai [daily digest|newsletters digest]"
+        echo "  daily digest       - Generate daily digest"
+        echo "  newsletters digest - Generate newsletters digest"
+        echo "  (no args)          - Show interactive menu"
         exit 1
         ;;
 esac
