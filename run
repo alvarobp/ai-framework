@@ -12,8 +12,16 @@ run_newsletters() {
     cd projects/newsletters-digest; ./generate.sh
 }
 
+# Function to read newsletters digest
+read_newsletters() {
+    echo "Opening newsletters digest..."
+    cd projects/newsletters-digest; ./read.sh
+}
+
 # Function to show interactive menu
 show_menu() {
+    local header_text="${1:-What are you up to?}"
+    
     # Check if gum is installed and available
     if ! command -v gum &> /dev/null; then
         echo -e "\033[31mError: gum is not installed or not available in PATH\033[0m"
@@ -21,19 +29,21 @@ show_menu() {
         exit 1
     fi
 
-    # Show welcome banner using gum
-    welcome_text=$(gum join "$(gum style --foreground 255 "Welcome to ")" "$(gum style --foreground 208 "abp")" "$(gum style --foreground 208 "AI")")
-    gum style \
-        --border double \
-        --border-foreground 208 \
-        --align center \
-        --width 40 \
-        --margin "1 2" \
-        --padding "1 2" \
-        "$welcome_text"
+    # Show welcome banner using gum only on first run
+    if [ "$header_text" = "What are you up to?" ]; then
+        welcome_text=$(gum join "$(gum style --foreground 255 "Welcome to ")" "$(gum style --foreground 208 "abp")" "$(gum style --foreground 208 "AI")")
+        gum style \
+            --border double \
+            --border-foreground 208 \
+            --align center \
+            --width 40 \
+            --margin "1 2" \
+            --padding "1 2" \
+            "$welcome_text"
+    fi
 
     # Present options
-    choice=$(gum choose --cursor.foreground 208 --header.foreground 255 --item.foreground 250 --header "What are you up to?" "Generate Daily Digest" "Generate Newsletters Digest" "Exit")
+    choice=$(gum choose --cursor.foreground 208 --header.foreground 255 --item.foreground 250 --header "$header_text" "Generate Daily Digest" "Generate Newsletters Digest" "Read Newsletters Digest" "Exit")
 
     case $choice in
         "Generate Daily Digest")
@@ -41,6 +51,11 @@ show_menu() {
             ;;
         "Generate Newsletters Digest")
             run_newsletters
+            ;;
+        "Read Newsletters Digest")
+            read_newsletters
+            echo
+            show_menu "What's next?"
             ;;
         "Exit")
             echo "Goodbye!"
@@ -57,23 +72,28 @@ case "$1 $2" in
     "newsletters digest")
         run_newsletters
         ;;
+    "newsletters read")
+        read_newsletters
+        ;;
     "daily ")
         echo "Usage: ai daily digest"
         echo "  Generates a daily digest of activities"
         exit 1
         ;;
     "newsletters ")
-        echo "Usage: ai newsletters digest"
-        echo "  Generates a digest of newsletter content"
+        echo "Usage: ai newsletters [digest|read]"
+        echo "  digest - Generates a digest of newsletter content"
+        echo "  read   - Opens a newsletter digest from S3"
         exit 1
         ;;
     " ")
         show_menu
         ;;
     *)
-        echo "Usage: ai [daily digest|newsletters digest]"
+        echo "Usage: ai [daily digest|newsletters digest|newsletters read]"
         echo "  daily digest       - Generate daily digest"
         echo "  newsletters digest - Generate newsletters digest"
+        echo "  newsletters read   - Read existing newsletters digest"
         echo "  (no args)          - Show interactive menu"
         exit 1
         ;;
