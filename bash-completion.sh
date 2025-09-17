@@ -12,7 +12,7 @@ _ai_completion() {
 
     if [[ $cword -eq 1 ]]; then
         # First argument: suggest main commands
-        COMPREPLY=($(compgen -W "daily newsletters" -- "$cur"))
+        COMPREPLY=($(compgen -W "daily newsletters youtube" -- "$cur"))
     elif [[ $cword -eq 2 ]]; then
         # Second argument: depends on first argument
         case "${COMP_WORDS[1]}" in

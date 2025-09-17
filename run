@@ -24,6 +24,16 @@ read_daily() {
     cd projects/daily-digest; ./read.sh
 }
 
+# Function to summarize youtube video
+summarize_youtube() {
+    if [ -z "$1" ]; then
+        echo "Usage: ai youtube <youtube_url>"
+        echo "Example: ai youtube https://youtu.be/dQw4w9WgXcQ"
+        exit 1
+    fi
+    cd projects/youtube-summary; ./generate.sh "$1"
+}
+
 # Function to show interactive menu
 show_menu() {
     local header_text="${1:-What are you up to?}"
@@ -49,7 +59,7 @@ show_menu() {
     fi
 
     # Present options
-    choice=$(gum choose --cursor.foreground 208 --header.foreground 255 --item.foreground 250 --header "$header_text" "Generate Daily Digest" "Generate Newsletters Digest" "Read Daily Digest" "Read Newsletters Digest" "Exit")
+    choice=$(gum choose --cursor.foreground 208 --header.foreground 255 --item.foreground 250 --header "$header_text" "Generate Daily Digest" "Generate Newsletters Digest" "Read Daily Digest" "Read Newsletters Digest" "Summarize YouTube Video" "Exit")
 
     case $choice in
         "Generate Daily Digest")
@@ -68,6 +78,14 @@ show_menu() {
             echo
             show_menu "What's next?"
             ;;
+        "Summarize YouTube Video")
+            youtube_url=$(gum input --placeholder "Enter YouTube URL...")
+            if [ -n "$youtube_url" ]; then
+                summarize_youtube "$youtube_url"
+            fi
+            echo
+            show_menu "What's next?"
+            ;;
         "Exit")
             echo "Goodbye!"
             exit 0
@@ -76,40 +94,53 @@ show_menu() {
 }
 
 # Handle command line arguments
-case "$1 $2" in
-    "daily digest")
-        run_daily
+case "$1" in
+    "youtube")
+        shift
+        summarize_youtube "$*"
         ;;
-    "daily read")
-        read_daily
+    "daily")
+        case "$2" in
+            "digest")
+                run_daily
+                ;;
+            "read")
+                read_daily
+                ;;
+            *)
+                echo "Usage: ai daily [digest|read]"
+                echo "  digest - Generates a daily digest of activities"
+                echo "  read   - Opens a daily digest from S3"
+                exit 1
+                ;;
+        esac
         ;;
-    "newsletters digest")
-        run_newsletters
+    "newsletters")
+        case "$2" in
+            "digest")
+                run_newsletters
+                ;;
+            "read")
+                read_newsletters
+                ;;
+            *)
+                echo "Usage: ai newsletters [digest|read]"
+                echo "  digest - Generates a digest of newsletter content"
+                echo "  read   - Opens a newsletter digest from S3"
+                exit 1
+                ;;
+        esac
         ;;
-    "newsletters read")
-        read_newsletters
-        ;;
-    "daily ")
-        echo "Usage: ai daily [digest|read]"
-        echo "  digest - Generates a daily digest of activities"
-        echo "  read   - Opens a daily digest from S3"
-        exit 1
-        ;;
-    "newsletters ")
-        echo "Usage: ai newsletters [digest|read]"
-        echo "  digest - Generates a digest of newsletter content"
-        echo "  read   - Opens a newsletter digest from S3"
-        exit 1
-        ;;
-    " ")
+    "")
         show_menu
         ;;
     *)
-        echo "Usage: ai [daily digest|daily read|newsletters digest|newsletters read]"
+        echo "Usage: ai [daily digest|daily read|newsletters digest|newsletters read|youtube <url>]"
         echo "  daily digest       - Generate daily digest"
         echo "  daily read         - Read existing daily digest"
         echo "  newsletters digest - Generate newsletters digest"
         echo "  newsletters read   - Read existing newsletters digest"
+        echo "  youtube <url>      - Summarize YouTube video"
         echo "  (no args)          - Show interactive menu"
         exit 1
         ;;
