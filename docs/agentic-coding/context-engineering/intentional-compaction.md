@@ -1,6 +1,9 @@
 # Intentional Compaction
 
-Source: https://youtu.be/IS_y40zY-hc?t=288
+Sources:
+
+- https://youtu.be/IS_y40zY-hc?t=288
+- https://github.com/humanlayer/advanced-context-engineering-for-coding-agents/blob/main/ace-fca.md
 
 ## Concept
 
