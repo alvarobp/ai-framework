@@ -2,6 +2,8 @@
 
 Used in a Claude Project to generate a web page artifact.
 
+Generated digests are automatically uploaded to and stored in an AWS S3 bucket for easy access and sharing.
+
 ## Project setup
 
 Set Project Instructions to [instructions.md](./instructions.md)
@@ -14,11 +16,19 @@ You can generate a new digest as easily as asking "Generate digest" in a new con
 ## Run unattended from a shell
 
 Requirements:
-  - AWS CLI (authenticated with access to s3://alvarobp-digests)
-  - Set access key environment variables in `.env` by copying `.env.sample`
+  - AWS CLI (authenticated with access to the S3 bucket)
+  - Configure `.env` file with:
+    - AWS credentials (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`)
+    - S3 bucket configuration (`S3_BUCKET`, `S3_PATH`)
 
 ```shell
 bash generate.sh
+```
+
+The script will generate the digest and automatically upload it to the configured S3 bucket. You can later read digests using:
+
+```shell
+bash read.sh
 ```
 
 ## HTML Template

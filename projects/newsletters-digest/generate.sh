@@ -6,4 +6,4 @@ echo "Generating newsletters digest..."
 cat instructions.md additions-for-unattended.md | \
   claude -p && \
   echo "Uploading digest..." && \
-  aws s3 sync --acl public-read digests/ s3://alvarobp-digests/newsletters-digests/
+  aws s3 sync --acl public-read digests/ s3://${S3_BUCKET}/${S3_PATH}/

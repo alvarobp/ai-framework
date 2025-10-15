@@ -10,7 +10,7 @@ fi
 echo "Fetching daily digests from AWS S3..."
 
 # Get list of digest files from S3, sort by date (newest first), limit to 10
-digests=$(aws s3 ls s3://alvarobp-digests/daily-digests/ --recursive | \
+digests=$(aws s3 ls s3://${S3_BUCKET}/${S3_PATH}/ --recursive | \
     grep '\.html$' | \
     sort -k1,2 -r | \
     head -10 | \
@@ -49,7 +49,7 @@ fi
 selected_path="${digest_map[$selected]}"
 
 # Construct the public URL
-public_url="https://alvarobp-digests.s3.amazonaws.com/$selected_path"
+public_url="https://${S3_BUCKET}.s3.amazonaws.com/$selected_path"
 
 echo "Opening: $public_url"
 
