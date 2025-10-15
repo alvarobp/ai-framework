@@ -7,11 +7,18 @@ It could be any AI knowledge, practices, methodologies, prompts, patterns, etc
 ## Contents
 
 - [**Prompts**](./prompts): Effective prompt templates and examples
-- **Command-line tools**: Daily digest and newsletter processing utilities
+- [**Docs**](./docs): AI engineering knowledge and best practices
+  - [Agentic Coding](./docs/agentic-coding): Framework requirements and context engineering techniques
+  - [AI Engineering](./docs/ai-engineering): Writing effective tools for agents
+  - [Prompting](./docs/prompting): Advanced prompting techniques
+- [**Projects**](./projects): Command-line automation tools
+  - [Daily Digest](./projects/daily-digest): Daily content aggregation
+  - [Newsletters Digest](./projects/newsletters-digest): Newsletter processing
+  - [YouTube Summary](./projects/youtube-summary): Video transcript summarization
 
 ## Command-line Tool
 
-The `run` script provides a command-line interface for managing daily digests and newsletter processing.
+The `run` script provides a command-line interface for managing daily digests, newsletter processing, and YouTube video summarization.
 
 ### Installation
 
@@ -28,9 +35,10 @@ Run `ai` without arguments to open an interactive menu.
 
 #### Command Line Usage
 - `ai daily digest` - Generate daily digest
-- `ai daily read` - Read existing daily digest  
+- `ai daily read` - Read existing daily digest
 - `ai newsletters digest` - Generate newsletters digest
 - `ai newsletters read` - Read existing newsletters digest
+- `ai youtube <url>` - Summarize YouTube video from URL
 
 ### Bash Completion Setup
 
@@ -47,9 +55,10 @@ To enable tab completion for the `ai` command:
    ```
 
 #### Completion Features
-- `ai <TAB>` → suggests `daily` and `newsletters`
+- `ai <TAB>` → suggests `daily`, `newsletters`, and `youtube`
 - `ai daily <TAB>` → suggests `digest` and `read`
 - `ai newsletters <TAB>` → suggests `digest` and `read`
+- `ai youtube <TAB>` → accepts YouTube URL
 
 ### Requirements
 
