@@ -22,8 +22,7 @@ The `run` script provides a command-line interface for managing daily digests, n
 
 ### Installation
 
-1. Make the run script executable: `chmod +x run`
-2. Create an alias in your shell configuration:
+1. Create an alias in your shell configuration pointing to the `run` script:
    ```bash
    alias ai='~/code/ai-framework/run'
    ```
