@@ -8,9 +8,9 @@ It could be any AI knowledge, practices, methodologies, prompts, patterns, etc
 
 - [**Prompts**](./prompts): Effective prompt templates and examples
 - [**Docs**](./docs): AI engineering knowledge and best practices
-  - [Agentic Coding](./docs/agentic-coding): Framework requirements and context engineering techniques
-  - [AI Engineering](./docs/ai-engineering): Writing effective tools for agents
-  - [Prompting](./docs/prompting): Advanced prompting techniques
+  - [Agentic Coding](./docs/agentic-coding): AI-assisted development practices and frameworks
+  - [AI Engineering](./docs/ai-engineering): Building and architecting AI systems
+  - [Prompting](./docs/prompting): Prompt engineering techniques
 - [**Projects**](./projects): Command-line automation tools
   - [Daily Digest](./projects/daily-digest): Daily content aggregation
   - [Newsletters Digest](./projects/newsletters-digest): Newsletter processing
