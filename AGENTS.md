@@ -55,6 +55,14 @@ Different from digest projects - uses `yt-dlp` to download transcripts:
 
 **Dependencies**: `yt-dlp`, `claude` CLI
 
+## Git Commit Guidelines
+
+When creating git commits in this repository:
+- **DO NOT** add coding agents (including Claude, Claude Code, or any other AI assistants) as co-authors
+- Use standard commit messages without AI attribution
+- Do not append "Generated with [Claude Code]" or similar footers
+- Keep commits clean and focused on the actual changes
+
 ## Common Commands
 
 ### Running the CLI
