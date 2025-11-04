@@ -62,6 +62,7 @@ To enable tab completion for the `ai` command:
 ### Requirements
 
 - [gum](https://github.com/charmbracelet/gum) - Required for the interactive interface
+- [glow](https://github.com/charmbracelet/glow) - Optional, renders CLI Markdown output when available
 - Bash shell
 
 ## Purpose

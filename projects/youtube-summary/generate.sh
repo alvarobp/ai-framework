@@ -11,6 +11,14 @@ Example:
 EOF
 }
 
+render_markdown() {
+    if command -v glow >/dev/null 2>&1; then
+        glow "$@"
+    else
+        cat "$@"
+    fi
+}
+
 CLI_TOOL="claude"
 URL=""
 
@@ -90,7 +98,7 @@ fi
 
 case "$CLI_TOOL" in
     claude)
-        claude -p "$SUMMARY_PROMPT"
+        claude -p "$SUMMARY_PROMPT" | render_markdown
         ;;
     codex)
         TMP_OUTPUT=$(mktemp -t codex-summary-XXXXXX 2>/dev/null)
@@ -107,7 +115,7 @@ case "$CLI_TOOL" in
             exit 1
         fi
 
-        cat "$TMP_OUTPUT"
+        render_markdown < "$TMP_OUTPUT"
         rm -f "$TMP_OUTPUT" "$TMP_LOG"
         ;;
     *)
