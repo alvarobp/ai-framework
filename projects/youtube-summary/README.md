@@ -1,11 +1,12 @@
 # YouTube Summary Generator
 
-A tool to download YouTube video transcripts and generate AI-powered summaries using Claude.
+A tool to download YouTube video transcripts and generate AI-powered summaries using Claude Code or Codex.
 
 ## Requirements
 
 - `yt-dlp` - For downloading YouTube transcripts
-- `claude` CLI tool - For generating summaries
+- `claude` CLI tool - For generating summaries (default)
+- `codex` CLI tool (optional) - Use with the `--codex` flag
 
 ### Installing yt-dlp
 
@@ -25,12 +26,13 @@ sudo apt install yt-dlp
 ### Generate Summary
 
 ```bash
-./generate.sh <youtube_url>
+./generate.sh [--codex] <youtube_url>
 ```
 
 Example:
 ```bash
 ./generate.sh https://www.youtube.com/watch?v=dQw4w9WgXcQ
+./generate.sh --codex https://www.youtube.com/watch?v=dQw4w9WgXcQ
 ```
 
 ### Download Transcript Only
@@ -50,7 +52,7 @@ Examples:
 
 1. **generate.sh** extracts the video ID from the YouTube URL
 2. Calls **download-youtube-transcript.sh** to download the transcript to `tmp/transcript-videoID.txt`
-3. Uses the Claude CLI to generate a summary with the prompt: "Summarize @<transcript-file> Give me the big takeaways"
+3. Uses the selected CLI (Claude by default, Codex when `--codex` is provided) to generate a Markdown summary with clearly labeled "Key Takeaways" bullets and optional "Notable Quotes", without referencing the transcript file name
 
 ## Output
 

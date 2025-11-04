@@ -19,6 +19,11 @@ _ai_completion() {
             "daily"|"newsletters")
                 COMPREPLY=($(compgen -W "digest read" -- "$cur"))
                 ;;
+            "youtube")
+                if [[ " ${COMP_WORDS[*]} " != *" --codex "* ]]; then
+                    COMPREPLY=($(compgen -W "--codex" -- "$cur"))
+                fi
+                ;;
         esac
     fi
 

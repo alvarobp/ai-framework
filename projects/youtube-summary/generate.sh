@@ -1,12 +1,50 @@
 #!/bin/bash
 
-if [ $# -eq 0 ]; then
-    echo "Usage: $0 <youtube_url>" >&2
-    echo "Example: $0 https://www.youtube.com/watch?v=dQw4w9WgXcQ" >&2
+usage() {
+    cat <<EOF >&2
+Usage: $(basename "$0") [--codex] <youtube_url>
+  --codex    Use the Codex CLI instead of Claude Code
+
+Example:
+  $(basename "$0") https://www.youtube.com/watch?v=dQw4w9WgXcQ
+  $(basename "$0") --codex https://youtu.be/dQw4w9WgXcQ
+EOF
+}
+
+CLI_TOOL="claude"
+URL=""
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --codex)
+            CLI_TOOL="codex"
+            shift
+            ;;
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        -*)
+            echo "Error: Unknown option: $1" >&2
+            usage
+            exit 1
+            ;;
+        *)
+            if [ -n "$URL" ]; then
+                echo "Error: Multiple URLs provided." >&2
+                usage
+                exit 1
+            fi
+            URL="$1"
+            shift
+            ;;
+    esac
+done
+
+if [ -z "$URL" ]; then
+    usage
     exit 1
 fi
-
-URL="$1"
 
 # Extract video ID from URL (support both youtube.com and youtu.be formats)
 VIDEO_ID=$(echo "$URL" | sed -n -e 's/.*[?&]v=\([^&]*\).*/\1/p' -e 's/.*youtu\.be\/\([^?]*\).*/\1/p')
@@ -36,5 +74,44 @@ if [ ! -f "$TRANSCRIPT_FILE" ] || [ ! -s "$TRANSCRIPT_FILE" ]; then
     exit 1
 fi
 
-# Generate summary using claude (only output goes to stdout)
-claude -p "Summarize @$TRANSCRIPT_FILE Give me the big takeaways"
+# Generate summary using the selected CLI tool (only output goes to stdout)
+read -r -d '' SUMMARY_PROMPT <<EOF || true
+Summarize @$TRANSCRIPT_FILE into a concise, readable Markdown report.
+- Add a "Key Takeaways" section with short bullet points.
+- Include a "Notable Quotes" section only when there are standout lines.
+- Keep the tone neutral and informative.
+- Do not mention the transcript file or that you received a file input.
+EOF
+
+if ! command -v "$CLI_TOOL" >/dev/null 2>&1; then
+    echo "Error: Required CLI tool '$CLI_TOOL' is not installed or not in PATH" >&2
+    exit 1
+fi
+
+case "$CLI_TOOL" in
+    claude)
+        claude -p "$SUMMARY_PROMPT"
+        ;;
+    codex)
+        TMP_OUTPUT=$(mktemp -t codex-summary-XXXXXX 2>/dev/null)
+        TMP_LOG=$(mktemp -t codex-summary-log-XXXXXX 2>/dev/null)
+        if [ -z "$TMP_OUTPUT" ] || [ -z "$TMP_LOG" ]; then
+            echo "Error: Failed to create temporary files for Codex output" >&2
+            rm -f "$TMP_OUTPUT" "$TMP_LOG"
+            exit 1
+        fi
+
+        if ! codex exec --output-last-message "$TMP_OUTPUT" "$SUMMARY_PROMPT" >"$TMP_LOG" 2>&1; then
+            cat "$TMP_LOG" >&2
+            rm -f "$TMP_OUTPUT" "$TMP_LOG"
+            exit 1
+        fi
+
+        cat "$TMP_OUTPUT"
+        rm -f "$TMP_OUTPUT" "$TMP_LOG"
+        ;;
+    *)
+        echo "Error: Unsupported CLI tool '$CLI_TOOL'" >&2
+        exit 1
+        ;;
+esac

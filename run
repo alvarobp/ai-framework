@@ -26,12 +26,13 @@ read_daily() {
 
 # Function to summarize youtube video
 summarize_youtube() {
-    if [ -z "$1" ]; then
-        echo "Usage: ai youtube <youtube_url>"
+    if [ $# -eq 0 ]; then
+        echo "Usage: ai youtube [--codex] <youtube_url>"
         echo "Example: ai youtube https://youtu.be/dQw4w9WgXcQ"
+        echo "Example: ai youtube --codex https://www.youtube.com/watch?v=dQw4w9WgXcQ"
         exit 1
     fi
-    cd projects/youtube-summary; ./generate.sh "$1"
+    cd projects/youtube-summary; ./generate.sh "$@"
 }
 
 # Function to show interactive menu
@@ -59,7 +60,7 @@ show_menu() {
     fi
 
     # Present options
-    choice=$(gum choose --cursor.foreground 208 --header.foreground 255 --item.foreground 250 --header "$header_text" "Generate Daily Digest" "Generate Newsletters Digest" "Read Daily Digest" "Read Newsletters Digest" "Summarize YouTube Video" "Exit")
+    choice=$(gum choose --cursor.foreground 208 --header.foreground 255 --item.foreground 250 --header "$header_text" "Generate Daily Digest" "Generate Newsletters Digest" "Read Daily Digest" "Read Newsletters Digest" "Summarize YouTube Video" "Summarize YouTube Video (Codex)" "Exit")
 
     case $choice in
         "Generate Daily Digest")
@@ -86,6 +87,14 @@ show_menu() {
             echo
             show_menu "What's next?"
             ;;
+        "Summarize YouTube Video (Codex)")
+            youtube_url=$(gum input --placeholder "Enter YouTube URL...")
+            if [ -n "$youtube_url" ]; then
+                summarize_youtube --codex "$youtube_url"
+            fi
+            echo
+            show_menu "What's next?"
+            ;;
         "Exit")
             echo "Goodbye!"
             exit 0
@@ -97,7 +106,7 @@ show_menu() {
 case "$1" in
     "youtube")
         shift
-        summarize_youtube "$*"
+        summarize_youtube "$@"
         ;;
     "daily")
         case "$2" in
