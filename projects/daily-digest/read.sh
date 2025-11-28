@@ -21,37 +21,30 @@ if [ -z "$digests" ]; then
     exit 1
 fi
 
-# Prepare the list for gum with readable names (extract date from filename)
-digest_options=""
-declare -A digest_map
-
-while IFS= read -r digest_path; do
-    # Extract filename from path
-    filename=$(basename "$digest_path")
-    
-    # Try to extract date from filename (assuming format contains date)
-    # This will show the filename as the option
-    readable_name="$filename"
-    
-    digest_options+="$readable_name"$'\n'
-    digest_map["$readable_name"]="$digest_path"
-done <<< "$digests"
+# Build list of filenames for selection
+digest_options=$(echo "$digests" | while IFS= read -r digest_path; do
+    basename "$digest_path"
+done)
 
 # Use gum to let user select a digest
-selected=$(echo -n "$digest_options" | gum choose --header "Select a daily digest to open:")
+selected=$(echo "$digest_options" | gum choose --header "Select a daily digest to open:")
 
 if [ -z "$selected" ]; then
     echo "No digest selected."
     exit 1
 fi
 
-# Get the corresponding S3 path
-selected_path="${digest_map[$selected]}"
+# Find the corresponding S3 path by matching the selected filename
+selected_path=$(echo "$digests" | grep "/${selected}$")
 
 # Construct the public URL
 public_url="https://${S3_BUCKET}.s3.amazonaws.com/$selected_path"
 
 echo "Opening: $public_url"
 
-# Open in browser
-xdg-open "$public_url"
+# Open in browser (cross-platform)
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    open "$public_url"
+else
+    xdg-open "$public_url"
+fi
