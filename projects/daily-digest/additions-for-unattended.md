@@ -1,6 +1,6 @@
 IMPORTANT: If there are no unread emails in the "Daily Digests" label, do not generate any digest, do not write any files, and do not send any emails. Simply exit with a message saying "No unread emails found in Daily Digests label."
 
-Write down the generated HTML to digests/yyyy-mm-dd.html using today as date in the filename.
+Write down the generated HTML to digests/yyyy-mm-dd.html using the target date in the filename. If a TARGET DATE was specified at the beginning of these instructions, use that date. Otherwise, use today's date.
 
 If emails could be read and digest was successfully generated, then send an email to `alvarobp@gmail.com` with:
 
@@ -11,8 +11,10 @@ Body:
 ```
 Daily digest was successfully generated.
 
-<a href="https://alvarobp-digests.s3.eu-west-1.amazonaws.com/daily-digests/2025-09-09.html">Daily Digest - <Month> <Day>, <Year></a>
+<a href="https://alvarobp-digests.s3.eu-west-1.amazonaws.com/daily-digests/yyyy-mm-dd.html">Daily Digest - <Month> <Day>, <Year></a>
 ```
+
+(Replace yyyy-mm-dd with the actual target date in the link)
 
 If any part (digest generation, writing file, etc) of the process fails send an email to `alvarobp@gmail.com` with:
 

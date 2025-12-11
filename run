@@ -2,8 +2,14 @@
 
 # Function to run daily digest
 run_daily() {
-    echo "Running daily digest generation..."
-    cd projects/daily-digest; ./generate.sh
+    local target_date="$1"
+    if [ -n "$target_date" ]; then
+        echo "Running daily digest generation for $target_date..."
+        cd projects/daily-digest; ./generate.sh "$target_date"
+    else
+        echo "Running daily digest generation..."
+        cd projects/daily-digest; ./generate.sh
+    fi
 }
 
 # Function to run newsletters digest
@@ -64,7 +70,8 @@ show_menu() {
 
     case $choice in
         "Generate Daily Digest")
-            run_daily
+            target_date=$(gum input --placeholder "Date (YYYY-MM-DD) or press Enter for today...")
+            run_daily "$target_date"
             ;;
         "Generate Newsletters Digest")
             run_newsletters
@@ -111,15 +118,15 @@ case "$1" in
     "daily")
         case "$2" in
             "digest")
-                run_daily
+                run_daily "$3"
                 ;;
             "read")
                 read_daily
                 ;;
             *)
-                echo "Usage: ai daily [digest|read]"
-                echo "  digest - Generates a daily digest of activities"
-                echo "  read   - Opens a daily digest from S3"
+                echo "Usage: ai daily [digest [date]|read]"
+                echo "  digest [date] - Generates a daily digest (optionally for a specific date YYYY-MM-DD)"
+                echo "  read          - Opens a daily digest from S3"
                 exit 1
                 ;;
         esac
@@ -144,13 +151,13 @@ case "$1" in
         show_menu
         ;;
     *)
-        echo "Usage: ai [daily digest|daily read|newsletters digest|newsletters read|youtube <url>]"
-        echo "  daily digest       - Generate daily digest"
-        echo "  daily read         - Read existing daily digest"
-        echo "  newsletters digest - Generate newsletters digest"
-        echo "  newsletters read   - Read existing newsletters digest"
-        echo "  youtube <url>      - Summarize YouTube video"
-        echo "  (no args)          - Show interactive menu"
+        echo "Usage: ai [daily digest [date]|daily read|newsletters digest|newsletters read|youtube <url>]"
+        echo "  daily digest [date] - Generate daily digest (optionally for a specific date YYYY-MM-DD)"
+        echo "  daily read          - Read existing daily digest"
+        echo "  newsletters digest  - Generate newsletters digest"
+        echo "  newsletters read    - Read existing newsletters digest"
+        echo "  youtube <url>       - Summarize YouTube video"
+        echo "  (no args)           - Show interactive menu"
         exit 1
         ;;
 esac
